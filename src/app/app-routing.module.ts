@@ -5,18 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { TellComponent } from './components/tell/tell.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { LoggedInGuard } from './services/guards/logged-in.guard';
 import { RegisteredGuard } from './services/guards/registered-guard';
 
 const routes: Routes = [
   {
     path: 'tell',
     component: TellComponent,
-    canActivate: [RegisteredGuard]
-  },
-  {
-    path: 'show',
-    component: ShowComponent,
     canActivate: [RegisteredGuard]
   },
   {
