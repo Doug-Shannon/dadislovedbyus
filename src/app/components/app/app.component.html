@@ -1,6 +1,8 @@
 <div class="container" fxLayout="column">
   <div fxFlex="1"><router-outlet></router-outlet></div>
   <ng-container *ngIf="(auth$ | async) as auth">
-    <div fxLayout fxLayoutAlign="end center"><button fxFlexFill *ngIf="auth.registered" mat-button (click)="logout()">logout</button></div>
+      <div fxLayout fxLayoutAlign="end center"><button fxFlexFill *ngIf="auth.registered" mat-button (click)="logout()">logout</button></div>
+      <div fxLayout fxLayoutAlign="end center"><button fxFlexFill *ngIf="auth.registered && !isLogin" mat-button (click)="tell()">Tell about Dave</button></div>
+      <div fxLayout fxLayoutAlign="end center"><button fxFlexFill *ngIf="!auth.registered && !auth.loggedIn && !isTell" mat-button (click)="login()">login</button></div>
   </ng-container>
 </div>

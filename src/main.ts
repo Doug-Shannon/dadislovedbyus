@@ -8,8 +8,6 @@ import { environment } from './environments/environment';
 imgix.config.host = 'lovedad.imgix.net/';
 imgix.config.useHttps = true;
 
-console.log('imgix', imgix);
-
 if (environment.production) {
   enableProdMode();
 }
