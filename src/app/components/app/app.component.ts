@@ -16,13 +16,11 @@ export class AppComponent implements OnInit {
   public isLogin = false;
   public isTell = false;
 
-  constructor(private store: Store<AppState>, private router: Router, private route: ActivatedRoute) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
     this.auth$ = this.store.select('auth');
     this.store.dispatch(new authActions.GetUser());
-    this.isLogin = this.route.routeConfig.component.name.toUpperCase() === 'LOGIN';
-    this.isTell = this.route.routeConfig.component.name.toUpperCase() === 'TELL';
   }
 
   logout() {
