@@ -10,10 +10,6 @@ import { RegisteredGuard } from './services/guards/registered-guard';
 
 const routes: Routes = [
   {
-    path: '',
-    component: ShowComponent
-  },
-  {
     path: 'tell',
     component: TellComponent,
     canActivate: [RegisteredGuard]
@@ -31,6 +27,10 @@ const routes: Routes = [
     path: 'register',
     component: RegisterComponent,
     canActivate: [CanRegister]
+  },
+  {
+    path: '',
+    component: ShowComponent
   }
 ];
 
