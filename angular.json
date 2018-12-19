@@ -35,7 +35,6 @@
           },
           "configurations": {
             "production": {
-              "baseHref": "",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -53,7 +52,6 @@
               "buildOptimizer": true
             },
             "local": {
-              "baseHref": "",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
