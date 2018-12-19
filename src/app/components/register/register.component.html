@@ -1,0 +1,15 @@
+<div fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+  <form [formGroup]="userForm">
+    <!-- <app-upload></app-upload> -->
+    <div fxLayout="row">
+      <mat-form-field> <input matInput placeholder="First name" type="text" formControlName="firstname" /> </mat-form-field>
+    </div>
+    <div fxLayout="row">
+      <mat-form-field> <input matInput placeholder="Last name" type="text" formControlName="lastname" /> </mat-form-field>
+    </div>
+    <div fxLayout="column">
+      <button mat-raised-button type="submit" (click)="onSubmit()" [disabled]="!userForm.valid" fxLayoutAlign="space-between space-between">Submit</button>
+    </div>
+    <div fxLayout="column"><button (click)="cancel()" mat-button fxLayoutAlign="space-between space-between">Cancel</button></div>
+  </form>
+</div>

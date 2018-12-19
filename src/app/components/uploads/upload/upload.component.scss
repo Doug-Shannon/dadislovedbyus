@@ -1,0 +1,67 @@
+// .btn {
+//     width: 56px;
+//     height: 56px;
+//     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+//     border-radius: 50%;
+//     }
+// svg {
+//     width: 100%; height: auto;
+// }
+
+.btn-floating.btn-large {
+    width: 96px;
+    height: 96px;
+}
+.btn-floating.btn-large i {
+    line-height: 96px;
+    font-size: 3rem;
+}
+
+.camera-btn {
+    background-image: linear-gradient(-153deg, #D92354 1%, #DA5176 100%);
+    box-shadow: 2px 1px 20px 1px rgba(0,0,0,0.33);
+}
+
+progress[value] {
+    /* Reset the default appearance */
+    -webkit-appearance: none;
+     appearance: none;
+  
+    width: 100%;
+    height: 20px;
+  }
+
+progress, progress::-webkit-progress-value, progress::-moz-progress-bar { color: #D92354; }
+
+
+.camera-container {
+    background-image: url('/assets/images/camera-bg.jpg');
+    height: 100%;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.camera-btn-container {
+    position: absolute;
+    margin: 0 auto;
+    width: 50px;
+    left: calc(50% - 48px);
+    top: 80%;
+}
+// progress[value]::-webkit-progress-value {
+// background-image:
+//     linear-gradient(-153deg, #D92354 1%, #DA5176 100%);
+
+//     //  -webkit-linear-gradient(-45deg, 
+//     //                          transparent 33%, rgba(0, 0, 0, .1) 33%, 
+//     //                          rgba(0,0, 0, .1) 66%, transparent 66%),
+//     //  -webkit-linear-gradient(top, 
+//     //                          rgba(255, 255, 255, .25), 
+//     //                          rgba(0, 0, 0, .25)),
+//     //  -webkit-linear-gradient(left, #09c, #f44);
+
+//     border-radius: 2px; 
+//     background-size: 35px 20px, 100% 100%, 100% 100%;
+// }

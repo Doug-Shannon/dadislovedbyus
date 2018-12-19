@@ -1,0 +1,6 @@
+<div class="container" fxLayout="column">
+  <div fxFlex="1"><router-outlet></router-outlet></div>
+  <ng-container *ngIf="(auth$ | async) as auth">
+    <div fxLayout fxLayoutAlign="end center"><button fxFlexFill *ngIf="auth.registered" mat-button (click)="logout()">logout</button></div>
+  </ng-container>
+</div>

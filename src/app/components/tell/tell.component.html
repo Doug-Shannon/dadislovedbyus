@@ -1,0 +1,77 @@
+<mat-card>
+  <mat-card>
+    <div fxLayout fxLayoutAlign="center center"><h1>All About Dave</h1></div>
+  </mat-card>
+  <mat-card>
+    <div fxLayout fxLayout.xs="column">
+      <div fxFlex="25%" fxLayoutAlign="center center">
+        <mat-card style="border-radius: 50%; height: 200px; width: 200px; margin: 0; padding: 5px">
+          <img
+            style="border-radius: 50%; margin:0; padding: 0; width: 200px; height: 200px"
+            src="http://lovedad.imgix.net/dad-face.png?w=400&h=400"
+          />
+        </mat-card>
+      </div>
+      <div fxFlex="75%" style="text-align:start">
+        <div fxLayout>
+          <mat-card>
+            <p>
+              Let's take some time and love on Dave. Below, there are 4 different types of information you can share. You can add as many of
+              the different types as you want.
+            </p>
+          </mat-card>
+        </div>
+        <div fxLayout><h4>Instructions</h4></div>
+        <div fxLayout="column" fxLayoutGap="3px">
+          <ng-container *ngFor="let instruction of instructions">
+            <mat-card style="margin:0px;padding:0">
+              <div fxLayout="row" fxLayoutGap="2px">
+                <div fxFlex="10%" fxLayoutAlign="center center"><mat-icon>panorama_fish_eye</mat-icon></div>
+                <div fxFlex="90%">
+                  <p>{{ instruction }}</p>
+                </div>
+              </div>
+            </mat-card>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <div fxLayout fxLayoutAlign="center start">
+    <mat-accordion style="width:100%;" displayMode="flat" [multi]="false">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Nickname </mat-panel-title>
+          <mat-panel-description> A name you might call him </mat-panel-description>
+        </mat-expansion-panel-header>
+        Panel body
+        <mat-action-row> <button mat-button (click)="onAction(event)">Save</button> </mat-action-row>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Attribute </mat-panel-title>
+          <mat-panel-description> A thing about him </mat-panel-description>
+        </mat-expansion-panel-header>
+        Panel body
+        <mat-action-row> <button mat-button (click)="onAction(event)">Save</button> </mat-action-row>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Memory </mat-panel-title>
+          <mat-panel-description> A good memory</mat-panel-description>
+        </mat-expansion-panel-header>
+        Panel body
+        <mat-action-row> <button mat-button (click)="onAction(event)">Save</button> </mat-action-row>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title> Picture </mat-panel-title>
+          <mat-panel-description> A picture </mat-panel-description>
+        </mat-expansion-panel-header>
+        Panel body
+        <mat-action-row> <button mat-button (click)="onAction(event)">Save</button> </mat-action-row>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</mat-card>
