@@ -22,8 +22,8 @@ export class TellComponent implements OnInit {
     { icon: 'done', text: 'Save each entry individually' },
     { icon: 'error', text: 'There is currently no undo button. If you save a mistake, text me and I will fix it.' }
   ];
-  public nicknameForm = new FormGroup({ nickname: new FormControl('', [Validators.required, Validators.maxLength(10)]) });
-  public attributeForm = new FormGroup({ attribute: new FormControl('', [Validators.required, Validators.maxLength(25)]) });
+  public nicknameForm = new FormGroup({ nickname: new FormControl('', [Validators.required, Validators.maxLength(20)]) });
+  public attributeForm = new FormGroup({ attribute: new FormControl('', [Validators.required, Validators.maxLength(50)]) });
   public memoryForm = new FormGroup({ memory: new FormControl('', [Validators.required, Validators.maxLength(5000)]) });
   public about$: Observable<AboutState>;
 

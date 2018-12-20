@@ -11,7 +11,7 @@
       </div>
       <div fxFlex="75%" style="text-align:start">
         <div fxLayout>
-          <mat-card> <p>Let's take some time and love on Dave. Below, there are 4 different types of information you can share. You can add as many of the different types as you want.</p> </mat-card>
+          <mat-card> <p>Let's take some time and love on Dave. Below, there are 3 different types of information you can share. You can add as many of the different types as you want.  I'll reach out when photo sharing is available.</p> </mat-card>
         </div>
         <div fxLayout><h4>Instructions</h4></div>
         <div fxLayout="column" fxLayoutGap="3px">
@@ -42,19 +42,19 @@
           <div fxLayout="column" fxFlex>
             <div fxLayout fxFlex class="alert alert-danger">
               <div *ngIf="nicknameForm.invalid && (nicknameForm.dirty || nicknameForm.touched)">
-                <mat-error *ngIf="nicknameForm.get('nickname').hasError('maxlength')">Name must be less than 10 characters long.</mat-error>
+                <mat-error *ngIf="nicknameForm.get('nickname').hasError('maxlength')">Name must be less than 20 characters long.</mat-error>
               </div>
               &nbsp;
             </div>
-            <div fxLayout fxFlex>
-              <div fxLayout="column" fxFlex="90%">
+            <div fxLayout fxFlex fxLayoutGap="10px" fxLayoutGap.xs="10px">
+              <div fxLayout="column" fxFlex="80%">
                 <div fxLayout>
                   <form [formGroup]="nicknameForm" fxFlex>
                     <mat-form-field fxFlex> <input matInput placeholder="Nickname" type="text" formControlName="nickname"/></mat-form-field>
                   </form>
                 </div>
               </div>
-              <div fxLayout="column" fxFlex="10%"><button fxFlex mat-raised-button (click)="saveNickname()" [disabled]="!nicknameForm.valid">Add</button></div>
+              <div fxLayout="column" fxFlex="20%"><button fxFlex mat-raised-button (click)="saveNickname()" [disabled]="!nicknameForm.valid">Add</button></div>
             </div>
           </div>
         </mat-expansion-panel>
@@ -66,19 +66,19 @@
           <div fxLayout="column" fxFlex>
             <div fxLayout fxFlex class="alert alert-danger">
               <div *ngIf="attributeForm.invalid && (attributeForm.dirty || attributeForm.touched)">
-                <mat-error *ngIf="attributeForm.get('attribute').hasError('maxlength')">Attribute must be less than 25 characters long.</mat-error>
+                <mat-error *ngIf="attributeForm.get('attribute').hasError('maxlength')">Attribute must be less than 50 characters long.</mat-error>
               </div>
               &nbsp;
             </div>
-            <div fxLayout fxFlex>
-              <div fxLayout="column" fxFlex="90%">
+            <div fxLayout fxFlex fxLayoutGap="10px" fxLayoutGap.xs="10px">
+              <div fxLayout="column" fxFlex="80%">
                 <div fxLayout>
                   <form [formGroup]="attributeForm" fxFlex>
                     <mat-form-field fxFlex> <input matInput placeholder="Attribute" type="text" formControlName="attribute"/></mat-form-field>
                   </form>
                 </div>
               </div>
-              <div fxLayout="column" fxFlex="10%"><button fxFlex mat-raised-button (click)="saveAttribute()" [disabled]="!attributeForm.valid">Add</button></div>
+              <div fxLayout="column" fxFlex="20%"><button fxFlex mat-raised-button (click)="saveAttribute()" [disabled]="!attributeForm.valid">Add</button></div>
             </div>
           </div>
         </mat-expansion-panel>
@@ -94,15 +94,15 @@
                 </div>
                 &nbsp;
               </div>
-              <div fxLayout fxFlex>
-                <div fxLayout="column" fxFlex="90%">
+              <div fxLayout fxFlex fxLayoutGap="10px" fxLayoutGap.xs="10px">
+                <div fxLayout="column" fxFlex="80%">
                   <div fxLayout>
                     <form [formGroup]="memoryForm" fxFlex>
                       <mat-form-field fxFlex> <input matInput placeholder="Memory" type="text" formControlName="memory"/></mat-form-field>
                     </form>
                   </div>
                 </div>
-                <div fxLayout="column" fxFlex="10%"><button fxFlex mat-raised-button (click)="saveMemory()" [disabled]="!memoryForm.valid">Add</button></div>
+                <div fxLayout="column" fxFlex="20%"><button fxFlex mat-raised-button (click)="saveMemory()" [disabled]="!memoryForm.valid">Add</button></div>
               </div>
             </div>
         </mat-expansion-panel>

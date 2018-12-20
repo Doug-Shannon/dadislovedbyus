@@ -19,7 +19,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
+              "src/favicon.png",
+              "src/apple-touch-icon.png",
+              "src/favicon-32x32.png",
+              "src/favicon-16x16.png",
+              "src/site.webmanifest",
+              "src//safari-pinned-tab.svg",
               "src/assets",
               {
                 "glob": "_redirects",
@@ -108,7 +113,12 @@
               "node_modules/imgix.js/dist/imgix.min.js"
             ],
             "assets": [
-              "src/favicon.ico",
+              "src/favicon.png",
+              "src/apple-touch-icon.png",
+              "src/favicon-32x32.png",
+              "src/favicon-16x16.png",
+              "src/site.webmanifest",
+              "src//safari-pinned-tab.svg",
               "src/assets"
             ]
           }
