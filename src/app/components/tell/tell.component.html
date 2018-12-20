@@ -1,6 +1,6 @@
 <div *ngIf="(about$ | async) as about" fxLayout="column" fxLayoutGap="5px">
   <mat-card>
-    <div fxLayout fxLayoutAlign="center center"><h1>All About Dave</h1></div>
+    <div fxLayout fxLayoutAlign="center center"><h1 class="h1">All About Dave</h1></div>
   </mat-card>
   <mat-card>
     <div fxLayout fxLayout.xs="column">
@@ -11,7 +11,12 @@
       </div>
       <div fxFlex="75%" style="text-align:start">
         <div fxLayout>
-          <mat-card> <p>Let's take some time and love on Dave. Below, there are 3 different types of information you can share. You can add as many of the different types as you want.  I'll reach out when photo sharing is available.</p> </mat-card>
+          <mat-card>
+            <p class="instruction">
+              Let's take some time and love on Dave. Below, there are 3 different types of information you can share. You can add as many of the different types as you want. I'll reach out when photo
+              sharing is available.
+            </p>
+          </mat-card>
         </div>
         <div fxLayout><h4>Instructions</h4></div>
         <div fxLayout="column" fxLayoutGap="3px">
@@ -22,7 +27,7 @@
                   <mat-icon>{{ instruction.icon }}</mat-icon>
                 </div>
                 <div fxFlex="90%">
-                  <p>{{ instruction.text }}</p>
+                  <p class="instruction">{{ instruction.text }}</p>
                 </div>
               </div>
             </mat-card>
@@ -61,7 +66,7 @@
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title><h4>Add an attributes</h4></mat-panel-title>
+            <mat-panel-title><h4>Add an attribute</h4></mat-panel-title>
           </mat-expansion-panel-header>
           <div fxLayout="column" fxFlex>
             <div fxLayout fxFlex class="alert alert-danger">
@@ -88,23 +93,34 @@
             <mat-panel-title><h4>Add a memory</h4></mat-panel-title>
           </mat-expansion-panel-header>
           <div fxLayout="column" fxFlex>
-              <div fxLayout fxFlex class="alert alert-danger">
-                <div *ngIf="memoryForm.invalid && (memoryForm.dirty || memoryForm.touched)">
-                  <mat-error *ngIf="memoryForm.get('memory').hasError('maxlength')">Memory must be less than 5000 characters long.</mat-error>
-                </div>
-                &nbsp;
+            <div fxLayout fxFlex class="alert alert-danger">
+              <div *ngIf="memoryForm.invalid && (memoryForm.dirty || memoryForm.touched)">
+                <mat-error *ngIf="memoryForm.get('memory').hasError('maxlength')">Memory must be less than 5000 characters long.</mat-error>
               </div>
-              <div fxLayout fxFlex fxLayoutGap="10px" fxLayoutGap.xs="10px">
-                <div fxLayout="column" fxFlex="80%">
-                  <div fxLayout>
-                    <form [formGroup]="memoryForm" fxFlex>
-                      <mat-form-field fxFlex> <input matInput placeholder="Memory" type="text" formControlName="memory"/></mat-form-field>
-                    </form>
-                  </div>
-                </div>
-                <div fxLayout="column" fxFlex="20%"><button fxFlex mat-raised-button (click)="saveMemory()" [disabled]="!memoryForm.valid">Add</button></div>
-              </div>
+              &nbsp;
             </div>
+            <div fxLayout fxFlex fxLayoutGap="10px" fxLayoutGap.xs="10px">
+              <div fxLayout="column" fxFlex="80%">
+                <div fxLayout>
+                  <form [formGroup]="memoryForm" fxFlex>
+                    <mat-form-field fxFlex>
+                      <textarea
+                        matInput
+                        placeholder="Memory"
+                        type="text"
+                        formControlName="memory"
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="2"
+                        cdkAutosizeMaxRows="10"
+                      ></textarea
+                    ></mat-form-field>
+                  </form>
+                </div>
+              </div>
+              <div fxLayout="column" fxFlex="20%"><button fxFlex mat-raised-button (click)="saveMemory()" [disabled]="!memoryForm.valid">Add</button></div>
+            </div>
+          </div>
         </mat-expansion-panel>
       </mat-accordion>
     </div>

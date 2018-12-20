@@ -1,3 +1,6 @@
-* {
-  /* border: 1px solid black; */
+.instruction, mat-error, mat-form-field {
+  font-family: 'Dosis', 'sans-serif';
+}
+h1, h2, h3, h4 {
+  font-family: 'Lato', 'sans-serif';
 }

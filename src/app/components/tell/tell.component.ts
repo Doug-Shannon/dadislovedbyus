@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppState } from 'app/state/reducers';
 import { Store } from '@ngrx/store';
 import * as aboutActions from 'app/state/actions/about.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AboutState } from 'app/state/reducers/about.reducer';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-tell',
@@ -13,6 +14,8 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./tell.component.css']
 })
 export class TellComponent implements OnInit {
+
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
   public instructions = [
     { icon: 'scatter_plot', text: 'Try to share a few different types of each (nicknames might be difficult)' },
     {
@@ -20,12 +23,16 @@ export class TellComponent implements OnInit {
       text: 'Your name and face will be attached to these, make sure that they are up-lifting and will bring him joy'
     },
     { icon: 'done', text: 'Save each entry individually' },
-    { icon: 'error', text: 'There is currently no undo button. If you save a mistake, text me and I will fix it.' }
+    { icon: 'error', text: 'There is currently no undo button. If you save a mistake, text me and I will fix it.' },
+    { icon: 'face', text: 'Nicknames are just the names you might call him by.  I\'ll display them in a fun way' },
+    { icon: 'fingerprint', text: 'Attributes are an explanation of his character.  Think of them as 1-2 word amazon reviews.' },
+    { icon: 'favorite', text: 'Memories are meant to be long form - type as much as you want.' }
   ];
   public nicknameForm = new FormGroup({ nickname: new FormControl('', [Validators.required, Validators.maxLength(20)]) });
   public attributeForm = new FormGroup({ attribute: new FormControl('', [Validators.required, Validators.maxLength(50)]) });
   public memoryForm = new FormGroup({ memory: new FormControl('', [Validators.required, Validators.maxLength(5000)]) });
   public about$: Observable<AboutState>;
+  ngZone: any;
 
   constructor(private store: Store<AppState>) {}
 
@@ -57,5 +64,11 @@ export class TellComponent implements OnInit {
     if (this.memoryForm.valid) {
       this.store.dispatch(new aboutActions.SaveMemory(this.memoryForm.value.memory));
     }
+  }
+
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this.ngZone.onStable.pipe(take(1))
+        .subscribe(() => this.autosize.resizeToFitContent(true));
   }
 }
