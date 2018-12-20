@@ -39,7 +39,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 //// MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatExpansionModule, MatCardModule, MatDividerModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatExpansionModule, MatCardModule, MatDividerModule, MatSnackBarModule } from '@angular/material';
 import { AboutEffects } from './state/effects/about.effects';
 import { LoadingComponent } from './components/loading/loading.component';
 
@@ -76,7 +76,8 @@ const PRINT_BREAKPOINTS = [
     MatFormFieldModule,
     MatExpansionModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSnackBarModule
   ],
   providers: [AngularFirestore, { provide: BREAKPOINT, useValue: PRINT_BREAKPOINTS, multi: true }],
   bootstrap: [AppComponent]

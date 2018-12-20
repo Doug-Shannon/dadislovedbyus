@@ -5,6 +5,7 @@ import * as aboutActions from 'app/state/actions/about.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AboutState } from 'app/state/reducers/about.reducer';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tell',
@@ -23,13 +24,23 @@ export class TellComponent implements OnInit {
   ];
   public nicknameForm = new FormGroup({ nickname: new FormControl('', [Validators.required, Validators.maxLength(10)]) });
   public attributeForm = new FormGroup({ attribute: new FormControl('', [Validators.required, Validators.maxLength(25)]) });
-  public memoryForm = new FormGroup({ memory: new FormControl('', [Validators.required, Validators.maxLength(500)]) });
+  public memoryForm = new FormGroup({ memory: new FormControl('', [Validators.required, Validators.maxLength(5000)]) });
   public about$: Observable<AboutState>;
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.about$ = this.store.select('about');
+    this.about$ = this.store.select('about').pipe(
+      tap((about: AboutState) => {
+        if (!about.saving && !about.loading && !about.error) {
+          this.nicknameForm.reset();
+          this.attributeForm.reset();
+          this.memoryForm.reset();
+        } else if (about.error) {
+          console.error('error', about.error);
+        }
+      })
+    );
   }
 
   saveNickname() {

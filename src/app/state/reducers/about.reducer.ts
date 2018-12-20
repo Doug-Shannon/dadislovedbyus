@@ -36,6 +36,8 @@ export function reducer(state = initialState, action: AboutActions): AboutState 
     case AboutActionTypes.ERROR:
       return produce(state, draft => {
         draft.error = action.payload;
+        draft.loading = false;
+        draft.saving = false;
       });
     default:
       return state;
