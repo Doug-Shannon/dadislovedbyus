@@ -39,7 +39,9 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 //// MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatExpansionModule, MatCardModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatExpansionModule, MatCardModule, MatDividerModule } from '@angular/material';
+import { AboutEffects } from './state/effects/about.effects';
+import { LoadingComponent } from './components/loading/loading.component';
 
 const PRINT_BREAKPOINTS = [
   {
@@ -51,16 +53,7 @@ const PRINT_BREAKPOINTS = [
 ];
 
 @NgModule({
-  declarations: [
-    ShowComponent,
-    TellComponent,
-    LoginComponent,
-    ShellComponent,
-    AppComponent,
-    RegisterComponent,
-    UploadComponent,
-    FileSizePipe
-  ],
+  declarations: [ShowComponent, TellComponent, LoginComponent, ShellComponent, AppComponent, RegisterComponent, UploadComponent, FileSizePipe, LoadingComponent],
   imports: [
     // ANGULAR
     BrowserModule,
@@ -69,7 +62,7 @@ const PRINT_BREAKPOINTS = [
     // NGRX
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, AboutEffects]),
     // FIREBASE
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -82,7 +75,8 @@ const PRINT_BREAKPOINTS = [
     MatInputModule,
     MatFormFieldModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatDividerModule
   ],
   providers: [AngularFirestore, { provide: BREAKPOINT, useValue: PRINT_BREAKPOINTS, multi: true }],
   bootstrap: [AppComponent]
