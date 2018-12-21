@@ -1,7 +1,7 @@
 import { Memory } from 'app/models/memory';
 import { Action } from '@ngrx/store';
 import { Nickname } from 'app/models/nickname';
-import { Attribute } from '@angular/compiler/src/core';
+import { Attribute } from 'app/models/attribute';
 
 export enum AboutActionTypes {
   GET_ABOUT = '[INIT] Get about',

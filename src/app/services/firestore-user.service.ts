@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Store } from '@ngrx/store';
@@ -11,10 +11,13 @@ import { User } from 'app/models/user';
   providedIn: 'root'
 })
 export class FirestoreUserService {
-  constructor(private fsDB: AngularFirestore, private store: Store<AppState>) {}
+  constructor(private fsDB: AngularFirestore) {}
 
   public getUsers = this.fsDB
     .collection<User>('users')
-    .valueChanges()
-    .pipe(first());
+    .snapshotChanges()
+    .pipe(
+      first(),
+      map(actions => actions.map(action => User.From({ ...action.payload.doc.data(), id: action.payload.doc.id })))
+    );
 }

@@ -1,6 +1,11 @@
 <div fxLayout fxFlex="auto">
-  <mat-card fxLayoutAlign="start center" class="user-card">
-    <app-user-circle imgUrl="https://lovedad.imgix.net/dad-face.png?w=150&h=150"></app-user-circle>
-    <mat-card-content>Doug Shannon</mat-card-content>
+  <mat-card fxLayout class="user-card">
+    <div fxLayout="column">
+      <div fxLayout fxLayoutAlign="start start" class="content" fxFlex><mat-icon class="quotes">format_quote</mat-icon>{{content.attribute}}<mat-icon  class="quotes">format_quote</mat-icon></div>
+      <div fxLayout fxLayoutAlign="end start" fxFlex>
+        <!-- <div class="name mat-caption">-{{ user.firstname }}</div> -->
+      </div>
+      <app-user-circle [imgUrl]="faceUrl"></app-user-circle>
+    </div>
   </mat-card>
 </div>

@@ -1,15 +1,7 @@
-<!-- <div fxLayout="row" fxLayoutAlign="center start" style="margin-top: 20px; margin-left: -10px"><p id='typer' style="font-family: 'Rock Salt', cursive; " class="mat-display-4"></p></div>
-<div fxLayout="row" fxLayoutAlign="center start">
-  <img src="https://lovedad.imgix.net/dave-corrected-2.png?w=400&h=533"/>
+<div fxLayout="row" fxLayoutAlign="center start" style="margin-top: 20px; margin-left: -10px"><p id="typer" style="font-family: 'Rock Salt', cursive; " class="mat-display-4"></p></div>
+<div fxLayout="row" fxLayoutAlign="center start"><img src="https://lovedad.imgix.net/dave-corrected-2.png?w=400&h=533" /></div>
+<div fxLayout="row" fxLayoutAlign="center start"></div>
+
+<div *ngIf="(attributes$ | async) as attributes">
+  <div *ngFor="let attr of attributes"><app-user-card [content]="attr.attribute" [user]="attr.user"></app-user-card></div>
 </div>
-<div fxLayout="row" fxLayoutAlign="center start">
-</div> -->
-<app-user-card></app-user-card>
-
-<app-user-card></app-user-card>
-
-<app-user-card></app-user-card>
-
-<app-user-card></app-user-card>
-
-<app-user-card></app-user-card>

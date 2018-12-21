@@ -1,6 +1,6 @@
 import { FirestoreAboutService } from './../../services/firestore-about.service';
 
-import { Injectable, Attribute } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import * as AboutActions from '../actions/about.actions';
 import { Observable, of, forkJoin } from 'rxjs';
@@ -9,6 +9,7 @@ import { catchError, map, withLatestFrom, flatMap, switchMap, mergeMap } from 'r
 import { MatSnackBar } from '@angular/material';
 import { Nickname } from 'app/models/nickname';
 import { Memory } from 'app/models/memory';
+import { Attribute } from 'app/models/attribute';
 
 @Injectable()
 export class AboutEffects {

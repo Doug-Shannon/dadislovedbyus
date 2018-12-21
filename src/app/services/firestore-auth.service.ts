@@ -17,12 +17,12 @@ export class FirestoreAuthService {
   constructor(private fsDB: AngularFirestore, private store: Store<AppState>, private fAuth: AngularFireAuth) {}
 
   public getRegisteredUser = pipe(
-    concatMap((uid: string) => {
+    concatMap((id: string) => {
       return this.fsDB
         .collection('users')
-        .doc(uid)
+        .doc(id)
         .snapshotChanges()
-        .pipe(map(action => (action.payload.exists ? User.From({ ...action.payload.data(), uid: action.payload.id }) : uid)));
+        .pipe(map(action => (action.payload.exists ? User.From({ ...action.payload.data(), id: action.payload.id }) : id)));
     })
   );
 
@@ -38,7 +38,7 @@ export class FirestoreAuthService {
       switchMap(user => {
         return this.fsDB
           .collection('users')
-          .doc(user.uid)
+          .doc(user.id)
           .set({firstname: user.firstname, lastname: user.lastname});
       })
     );

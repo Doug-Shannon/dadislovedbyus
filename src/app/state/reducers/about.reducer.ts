@@ -2,7 +2,7 @@ import { Memory } from 'app/models/memory';
 import { AboutActions, AboutActionTypes } from 'app/state/actions/about.actions';
 import { produce } from 'immer';
 import { Nickname } from 'app/models/nickname';
-import { Attribute } from '@angular/compiler/src/core';
+import { Attribute } from 'app/models/attribute';
 
 export interface AboutState {
   nicknames: Nickname[];

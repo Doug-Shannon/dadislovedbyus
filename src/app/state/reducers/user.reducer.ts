@@ -29,3 +29,10 @@ export function reducer(state = initialState, action: UserActions): UserState {
       return state;
   }
 }
+
+const {
+  selectAll,
+} = userAdapter.getSelectors();
+
+// select the array of users
+export const selectAllUsers = selectAll;

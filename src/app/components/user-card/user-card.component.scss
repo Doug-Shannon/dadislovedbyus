@@ -1,9 +1,25 @@
 app-user-circle {
   margin-left: -40px;
   margin-bottom: -40px;
+  margin-top: -40px;
 }
 
 .user-card {
-  margin-left:30px;
-  margin-bottom:30px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  border: 2px solid black;
+}
+
+.content {
+  padding: 5px 0px 15px 15px;
+  font-family: 'dosis'
+}
+
+.quotes {
+  margin-top: -15px;
+}
+
+.name {
+  padding-bottom: 5px;
 }

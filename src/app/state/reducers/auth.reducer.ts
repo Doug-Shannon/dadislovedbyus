@@ -36,7 +36,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       });
     case AuthActionTypes.AUTHENTICATED:
       return produce(state, draft => {
-        draft.user = User.From({ uid: action.payload });
+        draft.user = User.From({ id: action.payload });
       });
     case AuthActionTypes.AUTHENTICATED_REGISTERED:
       return produce(state, draft => {
@@ -47,7 +47,7 @@ export function reducer(state = initialState, action: AuthActions): AuthState {
       });
     case AuthActionTypes.AUTHENTICATED_NOT_REGISTERED:
       return produce(state, draft => {
-        draft.user = User.From({ uid: action.payload });
+        draft.user = User.From({ id: action.payload });
         draft.loggedIn = true;
         draft.registered = false;
         draft.loading = false;
