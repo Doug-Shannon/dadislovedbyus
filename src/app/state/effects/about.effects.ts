@@ -1,16 +1,31 @@
 import { FirestoreAboutService } from './../../services/firestore-about.service';
 
-import { Injectable } from '@angular/core';
+import { Injectable, Attribute } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
 import * as AboutActions from '../actions/about.actions';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { Action } from '@ngrx/store';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, withLatestFrom, flatMap, switchMap, mergeMap } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
+import { Nickname } from 'app/models/nickname';
+import { Memory } from 'app/models/memory';
 
 @Injectable()
 export class AboutEffects {
   constructor(private actions$: Actions, private fsAboutService: FirestoreAboutService, private snackBar: MatSnackBar) {}
+
+  @Effect()
+  getNicknames: Observable<Action> = this.actions$.ofType<AboutActions.GetAbout>(AboutActions.AboutActionTypes.GET_ABOUT).pipe(
+    switchMap(() => this.fsAboutService.getAbout),
+
+    map(([nicknames, attributes, memories]: [Nickname[], Attribute[], Memory[]]) => {
+      return new AboutActions.GetAboutSuccess({ nicknames, attributes, memories });
+    }),
+
+    catchError(err => {
+      return of(new AboutActions.Error(err));
+    })
+  );
 
   @Effect()
   saveNickname: Observable<Action> = this.actions$.ofType<AboutActions.SaveNickname>(AboutActions.AboutActionTypes.SAVE_NICKNAME).pipe(

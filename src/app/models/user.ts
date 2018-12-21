@@ -2,7 +2,8 @@ export class User {
   uid: string;
   firstname: string;
   lastname: string;
-  constructor(uid: string = null, firstname: string = null, lastname: string = null) {
+  faceUrl: string;
+  constructor(uid: string = null, firstname: string = null, lastname: string = null, faceUrl: string = null) {
     if (uid) {
       this.uid = uid;
     }
@@ -12,10 +13,13 @@ export class User {
     if (lastname) {
       this.lastname = lastname;
     }
+    if (faceUrl) {
+      this.faceUrl = faceUrl;
+    }
   }
 
   public static From(obj: Partial<User>) {
-    const { uid, firstname, lastname } = obj;
-    return new this(uid, firstname, lastname);
+    const { uid, firstname, lastname, faceUrl } = obj;
+    return new this(uid, firstname, lastname, faceUrl);
   }
 }

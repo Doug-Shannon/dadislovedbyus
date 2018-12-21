@@ -1,3 +1,4 @@
+import { UserEffects } from './state/effects/user.effects';
 // INTERNAL
 //// BUILD
 import { environment } from 'src/environments/environment';
@@ -42,6 +43,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatExpansionModule, MatCardModule, MatDividerModule, MatSnackBarModule } from '@angular/material';
 import { AboutEffects } from './state/effects/about.effects';
 import { LoadingComponent } from './components/loading/loading.component';
+import { AttributeComponent } from './components/attribute/attribute.component';
+import { UserCardComponent } from './components/user-card/user-card.component';
+import { UserCircleComponent } from './components/user-circle/user-circle.component';
 
 const PRINT_BREAKPOINTS = [
   {
@@ -53,7 +57,7 @@ const PRINT_BREAKPOINTS = [
 ];
 
 @NgModule({
-  declarations: [ShowComponent, TellComponent, LoginComponent, ShellComponent, AppComponent, RegisterComponent, UploadComponent, FileSizePipe, LoadingComponent],
+  declarations: [ShowComponent, TellComponent, LoginComponent, ShellComponent, AppComponent, RegisterComponent, UploadComponent, FileSizePipe, LoadingComponent, AttributeComponent, UserCardComponent, UserCircleComponent],
   imports: [
     // ANGULAR
     BrowserModule,
@@ -62,7 +66,7 @@ const PRINT_BREAKPOINTS = [
     // NGRX
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AuthEffects, AboutEffects]),
+    EffectsModule.forRoot([AuthEffects, AboutEffects, UserEffects]),
     // FIREBASE
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
