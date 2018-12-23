@@ -1,10 +1,18 @@
 <div class="container" fxLayout="column">
-  <div fxLayoutAlign="center start" style="margin-left: -10px"><p id="typer" style="font-family: 'Righteous';padding:0; margin:0" class="mat-display-4"></p></div>
-  <div fxLayoutAlign="center end"><img src="https://lovedad.imgix.net/dave-corrected-web.png?w=300&h=400" /></div>
-  <div fxLayoutAlign="center end">
-    <div *ngFor="let attr of attributes">
-      <div *ngIf="attr.on" [@flyInOut]="'in'" style="margin-left: -30px"><app-user-card style="position:relative" [content]="attr.attribute" [user]="attr.user"></app-user-card></div>
+  <div fxLayoutAlign="center start" style="margin-left: -30px"><p #typer id="typer" class="mat-display-4 typer-content"></p></div>
+  <ng-container *ngIf="loaded; else loading">
+    <div fxFlex="1" class="container"></div>
+    <div fxLayoutAlign="center end" class="face-container"><img class="face" src="https://lovedad.imgix.net/dave-corrected-web.png?w=1200&h=1600" /></div>
+    <div fxFlex="1" class="container"></div>
+    <div fxLayoutAlign="center end">
+      <div *ngFor="let attr of attributes">
+        <div *ngIf="attr.on" [@flyInOut]="'in'" style="margin-left: -30px"><app-user-card style="position:relative" [content]="attr.attribute" [user]="attr.user"></app-user-card></div>
+      </div>
     </div>
-  </div>
-  <div fxFlex="1" class="container" style="border:1px solid black">1</div>
+  </ng-container>
 </div>
+<ng-template #loading>
+  <div fxFlex="1" class="container"></div>
+  <div fxLayoutAlign="center center"><app-loading></app-loading></div>
+  <div fxFlex="1" class="container"></div>
+</ng-template>

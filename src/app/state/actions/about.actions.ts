@@ -21,7 +21,7 @@ export class GetAbout implements Action {
 export class GetAboutSuccess implements Action {
   readonly type = AboutActionTypes.GET_ABOUT_SUCCESS;
 
-  constructor(public payload: {nicknames: Nickname[], attributes: Attribute[], memories: Memory[]}) {}
+  constructor(public payload: { memories: Memory[], attributes: Attribute[], nicknames: Nickname[] }) {}
 }
 
 export class SaveNickname implements Action {
@@ -66,13 +66,4 @@ export class Error implements Action {
   constructor(public payload: string) {}
 }
 
-export type AboutActions =
-  GetAbout
-  | GetAboutSuccess
-  | SaveNickname
-  | SaveNicknameSuccess
-  | Error
-  | SaveAttribute
-  | SaveAttributeSuccess
-  | SaveMemory
-  | SaveMemorySuccess;
+export type AboutActions = GetAbout | GetAboutSuccess | SaveNickname | SaveNicknameSuccess | Error | SaveAttribute | SaveAttributeSuccess | SaveMemory | SaveMemorySuccess;

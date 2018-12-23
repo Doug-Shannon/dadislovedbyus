@@ -1,0 +1,24 @@
+.typer-content {
+  font-family: 'Righteous';
+  padding: 0;
+  margin: 0;
+}
+
+.face {
+  width: 360px;
+  height: 480px;
+}
+
+@media (max-height: 900px){
+  .face {
+    width: 330px;
+    height: 440px;
+  }
+}
+
+@media (max-height: 700px){
+  .face {
+    width: 270px;
+    height: 360px;
+  }
+}

@@ -16,10 +16,10 @@ export class AboutEffects {
   constructor(private actions$: Actions, private fsAboutService: FirestoreAboutService, private snackBar: MatSnackBar) {}
 
   @Effect()
-  getNicknames: Observable<Action> = this.actions$.ofType<AboutActions.GetAbout>(AboutActions.AboutActionTypes.GET_ABOUT).pipe(
+  getAbout: Observable<Action> = this.actions$.ofType<AboutActions.GetAbout>(AboutActions.AboutActionTypes.GET_ABOUT).pipe(
     switchMap(() => this.fsAboutService.getAbout),
 
-    map(([nicknames, attributes, memories]: [Nickname[], Attribute[], Memory[]]) => {
+    map(([memories, attributes, nicknames]: [Memory[], Attribute[], Nickname[]]) => {
       return new AboutActions.GetAboutSuccess({ nicknames, attributes, memories });
     }),
 
