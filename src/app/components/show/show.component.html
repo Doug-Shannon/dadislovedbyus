@@ -1,12 +1,18 @@
-<div class="container" fxLayout="column">
-  <div fxLayoutAlign="center start" style="margin-left: -30px"><p #typer id="typer" class="mat-display-4 typer-content"></p></div>
+<canvas id="confetti-holder" style="z-index:-1000; position: absolute; top: 0px; left: 0px;"> </canvas>
+<div class="container" fxLayout="column" style="border: 10px solid black;z-index: 10;position: relative;">
   <ng-container *ngIf="loaded; else loading">
+    <div fxLayoutAlign="center start">
+      <ng-container *ngFor="let name of names">
+        <p *ngIf="name.on" [@bounce]="'bounce'" #typer class="mat-display-4 typer-content" [style.font-size]="name.size">{{ name.name }}</p>
+      </ng-container>
+    </div>
+
     <div fxFlex="1" class="container"></div>
-    <div fxLayoutAlign="center end" class="face-container"><img class="face" src="https://lovedad.imgix.net/dave-corrected-web.png?w=1200&h=1600" /></div>
+    <div fxLayoutAlign="center end" class="face-container"><img class="face" src="https://lovedad.imgix.net/dave-corrected-web.png?w=1200&h=1977" /></div>
     <div fxFlex="1" class="container"></div>
-    <div fxLayoutAlign="center end">
+    <div fxLayoutAlign="center end" style="height:100px;">
       <div *ngFor="let attr of attributes">
-        <div *ngIf="attr.on" [@flyInOut]="'in'" style="margin-left: -30px"><app-user-card style="position:relative" [content]="attr.attribute" [user]="attr.user"></app-user-card></div>
+        <div *ngIf="attr.on" [@bounceInUp]="'flyIn'" style="margin-left: -30px"><app-user-card style="position:relative" [content]="attr.attribute" [user]="attr.user"></app-user-card></div>
       </div>
     </div>
   </ng-container>

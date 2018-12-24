@@ -2,23 +2,32 @@
   font-family: 'Righteous';
   padding: 0;
   margin: 0;
+  color: black;
 }
 
-.face {
-  width: 360px;
-  height: 480px;
-}
-
-@media (max-height: 900px){
+@media (max-height: 630px) {
   .face {
-    width: 330px;
-    height: 440px;
+    width: 182px;
+    height: 300px;
   }
 }
 
-@media (max-height: 700px){
+@media (min-height: 631px) and (max-height: 780px) {
   .face {
-    width: 270px;
-    height: 360px;
+    width: 240px;
+    height: 395;
+  }
+}
+@media (min-height: 781px) and (max-height: 900px) {
+  .face {
+    width: 330px;
+    height: 544px;
+  }
+}
+
+@media (min-height: 901px) {
+  .face {
+    width: 360px;
+    height: 574px;
   }
 }
