@@ -5,6 +5,12 @@
   color: black;
 }
 
+.show-container {
+  border: 10px solid black;
+  z-index: 10;
+  position: relative;
+}
+
 @media (max-height: 630px) {
   .face {
     width: 182px;
@@ -22,6 +28,20 @@
   .face {
     width: 330px;
     height: 544px;
+  }
+}
+
+@media (min-height: 901px) {
+  .face {
+    width: 360px;
+    height: 574px;
+  }
+}
+
+@media (min-height: 901px) and (min-width) {
+  .face {
+    width: 360px;
+    height: 574px;
   }
 }
 

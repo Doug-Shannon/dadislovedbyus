@@ -1,9 +1,9 @@
 <canvas id="confetti-holder" style="z-index:-1000; position: absolute; top: 0px; left: 0px;"> </canvas>
-<div class="container" fxLayout="column" style="border: 10px solid black;z-index: 10;position: relative;">
+<div class="container show-container" fxLayout="column">
   <ng-container *ngIf="loaded; else loading">
-    <div fxLayoutAlign="center start">
+    <div fxLayoutAlign="center start" style="height: 112px;">
       <ng-container *ngFor="let name of names">
-        <p *ngIf="name.on" [@bounce]="'bounce'" #typer class="mat-display-4 typer-content" [style.font-size]="name.size">{{ name.name }}</p>
+        <p *ngIf="name.on" [@zoomInOut]="'bounce'" #typer class="mat-display-4 typer-content" [style.font-size]="name.size">{{ name.name }}</p>
       </ng-container>
     </div>
 

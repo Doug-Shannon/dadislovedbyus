@@ -8,7 +8,7 @@ import { map, tap, withLatestFrom, switchMap, filter, delay } from 'rxjs/operato
 import { UserState } from 'app/state/reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { User } from 'app/models/user';
-import { bounceIn, bounceOut } from 'ng-animate';
+import { bounceIn, bounceOut, zoomInLeft, zoomOutRight, fadeInLeft, fadeOutRight, fadeInDown, fadeOutUp, fadeOut } from 'ng-animate';
 import 'confetti-js';
 
 import {
@@ -27,12 +27,19 @@ import { Nickname } from 'app/models/nickname';
   templateUrl: './show.component.html',
   styleUrls: ['./show.component.css'],
   animations: [
-    trigger('bounce', [
+    trigger('zoomInOut', [
       transition(
         ':enter',
-        useAnimation(bounceIn, {
+        useAnimation(fadeInDown, {
           // Set the duration to 5seconds and delay to 2seconds
-          // params: { timing: 2 }
+          // params: { timing: 5, delay: 2 }
+        })
+      ),
+      transition(
+        ':leave',
+        useAnimation(fadeOut, {
+          // Set the duration to 5seconds and delay to 2seconds
+          params: { timing: 0.55 }
         })
       )
     ]),
@@ -51,51 +58,6 @@ import { Nickname } from 'app/models/nickname';
           params: { timing: 0.55 }
         })
       )
-      // transition(
-      //   ':leave',
-      //   useAnimation(lightSpeedOut, {
-      //     // Set the duration to 5seconds and delay to 2seconds
-      //     // params: { timing: 5, delay: 2 }
-      //   })
-      // )
-    ]),
-    // trigger('thumbState', [
-    //   state(
-    //     'inactive',
-    //     style({
-    //       opacity: 0,
-    //       transform: 'scale(0.5)'
-    //     })
-    //   ),
-    //   state(
-    //     'active',
-    //     style({
-    //       opacity: 1,
-    //       transform: 'scale(1)'
-    //     })
-    //   ),
-    //   // cubic-bezier from http://easings.net/
-    //   transition('inactive => active', animate('500ms cubic-bezier(0.785, 0.135, 0.15, 0.86)')),
-    //   transition('active => inactive', animate('500ms cubic-bezier(0.785, 0.135, 0.15, 0.86)'))
-    // ]),
-    trigger('flyIn', [
-      state('in', style({ opacity: 1, transform: 'translateX(0)' })),
-      transition(':enter', [
-        style({
-          opacity: 0,
-          transform: 'translateX(-100%)'
-        }),
-        animate('1s ease-in')
-      ])
-      // transition(':leave', [
-      //   animate(
-      //     '.2s .1s ease-out',
-      //     style({
-      //       opacity: 0,
-      //       transform: 'translateX(100%)'
-      //     })
-      //   )
-      // ])
     ])
   ]
 })
@@ -119,7 +81,7 @@ export class ShowComponent implements OnInit {
   public attributes: { user: User; attribute: Attribute; on: boolean }[] = [];
   public names: { name: string; on: boolean; size: string }[] = [{ name: 'Dave', on: true, size: '112px' }];
   public loaded = false;
-  public confetti: ConfettiGenerator;
+  public confetti;
 
   @ViewChild('typer') private typerEl: ElementRef;
 
@@ -147,7 +109,7 @@ export class ShowComponent implements OnInit {
       .subscribe();
   }
 
-  private setupAttributes(attributes, usersMap) {
+  private setupAttributes(attributes: Attribute[], usersMap) {
     const attrMap = this.shuffle(
       attributes.map(a => {
         return { attribute: a, user: usersMap[a.user], on: false };
@@ -177,7 +139,16 @@ export class ShowComponent implements OnInit {
   }
 
   private setupNicknames(nicknames: Nickname[]) {
-    const names = this.shuffle(nicknames.map(n => n.nickname));
+    const dedupedArrayChecker: Nickname[] = [];
+    const dedupedArray: Nickname[] = nicknames.filter(n => {
+      if (!!dedupedArrayChecker.find(nick => n.nickname.toUpperCase() === nick.nickname.toUpperCase())) {
+        return false;
+      } else {
+        dedupedArrayChecker.push(n);
+        return true;
+      }
+    });
+    const names = this.shuffle(dedupedArray.map(n => n.nickname));
     let curName = '';
 
     this.names = [
@@ -202,6 +173,13 @@ export class ShowComponent implements OnInit {
 
     interval(10000)
       .pipe(
+        tap(() => {
+          // Attributes
+          this.names.forEach(a => {
+            a.on = false;
+          });
+        }),
+        delay(750),
         map(val => {
           let idx;
           do {
