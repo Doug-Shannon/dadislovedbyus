@@ -8,7 +8,7 @@ import { map, tap, withLatestFrom, switchMap, filter, delay } from 'rxjs/operato
 import { UserState } from 'app/state/reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { User } from 'app/models/user';
-import { bounceIn, bounceOut, zoomInLeft, zoomOutRight, fadeInLeft, fadeOutRight, fadeInDown, fadeOutUp, fadeOut } from 'ng-animate';
+import { bounceIn, bounceOut, rubberBand, fadeInDown, fadeOut, jello, fadeIn } from 'ng-animate';
 import 'confetti-js';
 
 import {
@@ -17,10 +17,22 @@ import {
   style,
   animate,
   transition,
-  useAnimation
+  useAnimation,
+  query,
+  stagger,
+  animateChild,
+  group
   // ...
 } from '@angular/animations';
 import { Nickname } from 'app/models/nickname';
+import produce from 'immer';
+
+export interface Entry<T> {
+  on: boolean;
+  used: boolean;
+  size?: string;
+  entry: T;
+}
 
 @Component({
   selector: 'app-show',
@@ -58,6 +70,16 @@ import { Nickname } from 'app/models/nickname';
           params: { timing: 0.55 }
         })
       )
+    ]),
+    trigger('seekAttention', [
+      transition('* => *', [
+        query(':self', [
+          group([
+            useAnimation(rubberBand, { params: {timing: 1, delay: .5 }}),
+            query('#heart-text', [animate('.75s ease-in', style({ opacity: 1 })), animate('.75s 500ms ease-out', style({ opacity: 0 }))])
+          ])
+        ])
+      ])
     ])
   ]
 })
@@ -77,11 +99,11 @@ export class ShowComponent implements OnInit {
 
   constructor(private store: Store<UserState>, private renderer: Renderer2) {}
 
-  private typewriter: any;
-  public attributes: { user: User; attribute: Attribute; on: boolean }[] = [];
-  public names: { name: string; on: boolean; size: string }[] = [{ name: 'Dave', on: true, size: '112px' }];
+  public attributes: Entry<Attribute>[] = [];
+  public names: Entry<string>[] = [{ entry: 'Dave', on: true, size: '112px', used: false } as Entry<string>];
   public loaded = false;
   public confetti;
+  public attentionSeeker = '';
 
   @ViewChild('typer') private typerEl: ElementRef;
 
@@ -91,7 +113,6 @@ export class ShowComponent implements OnInit {
       .pipe(
         withLatestFrom(this.store.select('about')),
         filter(([usersState, aboutState]: [UserState, AboutState]) => {
-          console.log('in filter', !(aboutState.loading || usersState.loading));
           return !(aboutState.loading || usersState.loading);
         }),
         tap(() => {
@@ -104,15 +125,35 @@ export class ShowComponent implements OnInit {
         }),
         tap(([usersState, aboutState]: [UserState, AboutState]) => {
           this.setupNicknames(aboutState.nicknames);
+        }),
+        tap(() => {
+          this.setupMemoryButton();
         })
       )
       .subscribe();
   }
 
+  public memoryButtonClicked() {
+    alert('clicked');
+  }
+
   private setupAttributes(attributes: Attribute[], usersMap) {
+    const dedupedArrayChecker: Attribute[] = [];
+    const dedupedArray: Attribute[] = attributes.filter(a => {
+      if (
+        !!dedupedArrayChecker.find(attr => {
+          return a.attribute === attr.attribute && a.user === attr.user;
+        })
+      ) {
+        return false;
+      } else {
+        dedupedArrayChecker.push(a);
+        return true;
+      }
+    });
     const attrMap = this.shuffle(
-      attributes.map(a => {
-        return { attribute: a, user: usersMap[a.user], on: false };
+      dedupedArray.map(a => {
+        return { entry: a, user: usersMap[a.user], on: false, used: false } as Entry<Attribute>;
       })
     );
     if (attrMap[0]) {
@@ -123,19 +164,34 @@ export class ShowComponent implements OnInit {
     interval(6000)
       .pipe(
         tap(() => {
-          // Attributes
-          this.attributes.forEach(a => {
-            a.on = false;
-          });
+          this.attributes.forEach(a => (a.on = false));
         }),
+        map(() => this.attributes.filter(a => !a.used).length <= 1),
         delay(750),
-        tap(() => {
-          this.attributes[Math.floor(Math.random() * this.attributes.length)].on = true;
+        map(reset => {
+          const remaining = this.attributes.filter(a => a.used === false);
 
-          // Names
+          const remainingIndex = Math.floor(Math.random() * remaining.length);
+          const randomRemaining = remaining[remainingIndex].entry;
+          const index = this.attributes.findIndex(({ entry }) => {
+            return entry.attribute === randomRemaining.attribute && entry.user === randomRemaining.user;
+          });
+
+          return {
+            index,
+            reset
+          };
         })
       )
-      .subscribe();
+      .subscribe(({ index, reset }) => {
+        if (reset) {
+          this.attributes.forEach(a => {
+            a.used = false;
+          });
+        }
+        this.attributes[index].on = true;
+        this.attributes[index].used = true;
+      });
   }
 
   private setupNicknames(nicknames: Nickname[]) {
@@ -148,54 +204,69 @@ export class ShowComponent implements OnInit {
         return true;
       }
     });
-    const names = this.shuffle(dedupedArray.map(n => n.nickname));
-    let curName = '';
+    this.names = this.shuffle(dedupedArray.map(n => n.nickname)).map(n => {
+      let size;
+      if (n.length < 7) {
+        size = '112px';
+      } else if (n.length < 10) {
+        size = '65px';
+      } else if (n.length < 14) {
+        size = '55px';
+      } else if (n.length < 18) {
+        size = '37px';
+      } else {
+        size = '30px';
+      }
 
-    this.names = [
-      ...this.names,
-      ...names.map(n => {
-        let size;
-        if (n.length < 7) {
-          size = '112px';
-        } else if (n.length < 10) {
-          size = '65px';
-        } else if (n.length < 14) {
-          size = '45px';
-        } else if (n.length < 18) {
-          size = '37px';
-        } else {
-          size = '30px';
-        }
-
-        return { name: n, size, on: false };
-      })
-    ];
+      return { entry: n, size, on: false, used: false };
+    });
+    this.names[0].on = true;
 
     interval(10000)
       .pipe(
         tap(() => {
-          // Attributes
-          this.names.forEach(a => {
-            a.on = false;
-          });
+          this.names.forEach(n => (n.on = false));
+        }),
+        map(() => {
+          return {
+            names: produce(this.names, draft => {}),
+            reset: this.names.filter(n => !n.used).length <= 1
+          };
         }),
         delay(750),
-        map(val => {
-          let idx;
-          do {
-            idx = Math.floor(Math.random() * names.length);
-            console.log(name);
-          } while (names.length > 1 && names[idx] === curName);
-          curName = name;
-          this.names.map(n => (n.on = false));
-          this.names[idx].on = true;
-        }),
-        map((n: string) => {})
+        map(({ names, reset }) => {
+          const remaining = names.filter(n => n.used === false).length;
+          const index = Math.floor(Math.random() * remaining);
+          return { index, reset };
+        })
+      )
+      .subscribe(({ index, reset }) => {
+        if (reset) {
+          this.names.forEach(n => {
+            n.used = false;
+          });
+        }
+        this.names[index].on = true;
+        this.names[index].used = true;
+      });
+  }
+
+  private setupMemoryButton() {
+    this.attentionSeeker = 'a';
+    interval(3000)
+      .pipe(
+        tap(() => {
+          if (this.attentionSeeker === 'a') {
+            this.attentionSeeker = 'b';
+          } else {
+            this.attentionSeeker = 'a';
+          }
+        })
       )
       .subscribe();
   }
 
-  private shuffle(array) {
+  private shuffle<T>(array: T[]): T[] {
     let m = array.length,
       t,
       i;

@@ -3,16 +3,23 @@
   <ng-container *ngIf="loaded; else loading">
     <div fxLayoutAlign="center start" style="height: 112px;">
       <ng-container *ngFor="let name of names">
-        <p *ngIf="name.on" [@zoomInOut]="'bounce'" #typer class="mat-display-4 typer-content" [style.font-size]="name.size">{{ name.name }}</p>
+        <p *ngIf="name.on" [@zoomInOut]="'bounce'" #typer class="mat-display-4 typer-content" [style.font-size]="name.size">{{ name.entry }}</p>
       </ng-container>
     </div>
 
-    <div fxFlex="1" class="container"></div>
+    <div fxFlex="1" class="container" fxLayoutAlign="end center" style="position: relative;">
+      <div style="position: absolute; padding-right: 6%; padding-top:40px;">
+        <div [@seekAttention]="attentionSeeker" class="image-container" (click)="memoryButtonClicked()">
+          <img class="heart centered" src="assets/like (1).svg" />
+          <div id="heart-text" class="heart-text"><p >touch</p></div>
+        </div>
+      </div>
+    </div>
     <div fxLayoutAlign="center end" class="face-container"><img class="face" src="https://lovedad.imgix.net/dave-corrected-web.png?w=1200&h=1977" /></div>
     <div fxFlex="1" class="container"></div>
     <div fxLayoutAlign="center end" style="height:100px;">
       <div *ngFor="let attr of attributes">
-        <div *ngIf="attr.on" [@bounceInUp]="'flyIn'" style="margin-left: -30px"><app-user-card style="position:relative" [content]="attr.attribute" [user]="attr.user"></app-user-card></div>
+        <div *ngIf="attr.on" [@bounceInUp]="'flyIn'" style="margin-left: -30px"><app-user-card style="position:relative" [content]="attr.entry" [user]="attr.user"></app-user-card></div>
       </div>
     </div>
   </ng-container>
