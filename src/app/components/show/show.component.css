@@ -9,6 +9,21 @@
   border: 10px solid black;
   z-index: 10;
   position: relative;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.white {
+  background-color: white;
+}
+
+@media (min-width: 500px) {
+  .show-container {
+    border: 10px solid black;
+    z-index: 10;
+    position: relative;
+    min-width: 500px;
+  }
 }
 
 @media (max-height: 630px) {
@@ -32,13 +47,6 @@
 }
 
 @media (min-height: 901px) {
-  .face {
-    width: 360px;
-    height: 574px;
-  }
-}
-
-@media (min-height: 901px) and (min-width) {
   .face {
     width: 360px;
     height: 574px;
@@ -72,11 +80,14 @@
 .heart {
   width: 100px;
   height: 100px;
-  z-index: -1;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .heart-text {
-  z-index: 1;
+  z-index: 20;
   font-family: 'Righteous';
   opacity: 0;
+  cursor: pointer;
+  position: relative;
 }

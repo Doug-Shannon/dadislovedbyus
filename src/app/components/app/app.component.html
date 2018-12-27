@@ -1,1 +1,10 @@
-<router-outlet></router-outlet>
+<ng-container *ngIf="(isBigScreenObs | async) as isBig">
+  <div *ngIf="isBig.matches; else smallScreen" fxLayout class="container" style="background-color: gray;">
+    <div fxLayout fxFlex class="container"></div>
+    <div fxLayout="column" class="container" style="background-color: gray;">
+      <div fxLayout="row" fxFlex><router-outlet></router-outlet></div>
+    </div>
+    <div fxLayout fxFlex class="container"></div>
+  </div>
+</ng-container>
+<ng-template #smallScreen><router-outlet></router-outlet> </ng-template>

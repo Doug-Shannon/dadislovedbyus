@@ -1,3 +1,6 @@
+import { MemoryModalData } from 'app/models/memory-dialog-data';
+import { Memory } from './../../models/memory';
+import { MemoryModalComponent } from './../memory-modal/memory-modal.component';
 declare var ConfettiGenerator: any;
 
 import { Attribute } from './../../models/attribute';
@@ -26,11 +29,13 @@ import {
 } from '@angular/animations';
 import { Nickname } from 'app/models/nickname';
 import produce from 'immer';
+import { MatDialog } from '@angular/material';
 
 export interface Entry<T> {
   on: boolean;
   used: boolean;
   size?: string;
+  user?: User;
   entry: T;
 }
 
@@ -75,8 +80,8 @@ export interface Entry<T> {
       transition('* => *', [
         query(':self', [
           group([
-            useAnimation(rubberBand, { params: {timing: 1, delay: .5 }}),
-            query('#heart-text', [animate('.75s ease-in', style({ opacity: 1 })), animate('.75s 500ms ease-out', style({ opacity: 0 }))])
+            useAnimation(rubberBand, { params: { timing: 1, delay: 0.5 } }),
+            query('#heart-text', [animate('.75s ease-in', style({ opacity: 0.25 })), animate('.75s 500ms ease-out', style({ opacity: 0 }))])
           ])
         ])
       ])
@@ -97,9 +102,10 @@ export class ShowComponent implements OnInit {
     height: ''
   };
 
-  constructor(private store: Store<UserState>, private renderer: Renderer2) {}
+  constructor(private store: Store<UserState>, private renderer: Renderer2, private dialog: MatDialog) {}
 
   public attributes: Entry<Attribute>[] = [];
+  public memories: Entry<Memory>[] = [];
   public names: Entry<string>[] = [{ entry: 'Dave', on: true, size: '112px', used: false } as Entry<string>];
   public loaded = false;
   public confetti;
@@ -126,6 +132,9 @@ export class ShowComponent implements OnInit {
         tap(([usersState, aboutState]: [UserState, AboutState]) => {
           this.setupNicknames(aboutState.nicknames);
         }),
+        tap(([usersState, aboutState]: [UserState, AboutState]) => {
+          this.setupMemories(aboutState.memories, usersState.entities);
+        }),
         tap(() => {
           this.setupMemoryButton();
         })
@@ -134,7 +143,24 @@ export class ShowComponent implements OnInit {
   }
 
   public memoryButtonClicked() {
-    alert('clicked');
+    const dialogRef = this.dialog.open(MemoryModalComponent, {
+      data: { memories: this.memories } as MemoryModalData,
+      panelClass: 'panelClass',
+      backdropClass: 'backdrop'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  private setupMemories(memories: Memory[], usersMap) {
+    const mems = this.shuffle(
+      memories.map(m => {
+        return { entry: m, user: usersMap[m.user], on: false, used: false } as Entry<Memory>;
+      })
+    );
+    this.memories = mems;
   }
 
   private setupAttributes(attributes: Attribute[], usersMap) {
@@ -253,7 +279,7 @@ export class ShowComponent implements OnInit {
 
   private setupMemoryButton() {
     this.attentionSeeker = 'a';
-    interval(3000)
+    interval(15000)
       .pipe(
         tap(() => {
           if (this.attentionSeeker === 'a') {

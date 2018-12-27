@@ -40,24 +40,53 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 //// MATERIAL
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatIconModule, MatExpansionModule, MatCardModule, MatDividerModule, MatSnackBarModule } from '@angular/material';
+import {
+  MatDialogModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatIconModule,
+  MatExpansionModule,
+  MatCardModule,
+  MatDividerModule,
+  MatSnackBarModule
+} from '@angular/material';
 import { AboutEffects } from './state/effects/about.effects';
 import { LoadingComponent } from './components/loading/loading.component';
 import { AttributeComponent } from './components/attribute/attribute.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
 import { UserCircleComponent } from './components/user-circle/user-circle.component';
+import { MemoryModalComponent } from './components/memory-modal/memory-modal.component';
 
-const PRINT_BREAKPOINTS = [
-  {
-    alias: 'xs.print',
-    suffix: 'XsPrint',
-    mediaQuery: 'print and (max-width: 297px)',
-    overlapping: false
-  }
-];
+//// OTHER
+import { SwiperModule, SWIPER_CONFIG, SwiperConfigInterface } from 'ngx-swiper-wrapper';
+
+const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
+  direction: 'vertical',
+  slidesPerView: 1,
+  keyboard: true,
+  mousewheel: false,
+  scrollbar: false,
+  pagination: false,
+  navigation: false
+};
 
 @NgModule({
-  declarations: [ShowComponent, TellComponent, LoginComponent, ShellComponent, AppComponent, RegisterComponent, UploadComponent, FileSizePipe, LoadingComponent, AttributeComponent, UserCardComponent, UserCircleComponent],
+  declarations: [
+    ShowComponent,
+    TellComponent,
+    LoginComponent,
+    ShellComponent,
+    AppComponent,
+    RegisterComponent,
+    UploadComponent,
+    FileSizePipe,
+    LoadingComponent,
+    AttributeComponent,
+    UserCardComponent,
+    UserCircleComponent,
+    MemoryModalComponent
+  ],
   imports: [
     // ANGULAR
     BrowserModule,
@@ -81,9 +110,19 @@ const PRINT_BREAKPOINTS = [
     MatExpansionModule,
     MatCardModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule,
+    // 3RD PARTY
+    SwiperModule
   ],
-  providers: [AngularFirestore, { provide: BREAKPOINT, useValue: PRINT_BREAKPOINTS, multi: true }],
+  providers: [
+    AngularFirestore,
+    {
+      provide: SWIPER_CONFIG,
+      useValue: DEFAULT_SWIPER_CONFIG
+    }
+  ],
+  entryComponents: [MemoryModalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

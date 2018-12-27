@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { User } from 'app/models/user';
 
 @Component({
   selector: 'app-user-circle',
@@ -6,11 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./user-circle.component.scss']
 })
 export class UserCircleComponent implements OnInit {
-  @Input() imgUrl: string;
+  @Input() user: User;
+  public url: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
+    this.url = `https://lovedad.imgix.net/${this.user.faceUrl ? this.user.faceUrl : 'empty-profile.jpg'}?w=150&h=150`;
   }
-
 }

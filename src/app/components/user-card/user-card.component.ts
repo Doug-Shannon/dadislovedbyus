@@ -10,11 +10,9 @@ import { Attribute } from 'app/models/attribute';
 export class UserCardComponent implements OnInit {
   @Input() user: User;
   @Input() content: Attribute;
-  public faceUrl: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    this.faceUrl = `https://lovedad.imgix.net/${this.user.faceUrl ? this.user.faceUrl : 'dad-face.png'}?w=150&h=150`;
   }
 }
