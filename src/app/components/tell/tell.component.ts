@@ -30,7 +30,7 @@ export class TellComponent implements OnInit {
   ];
   public nicknameForm = new FormGroup({ nickname: new FormControl('', [Validators.required, Validators.maxLength(20)]) });
   public attributeForm = new FormGroup({ attribute: new FormControl('', [Validators.required, Validators.maxLength(50)]) });
-  public memoryForm = new FormGroup({ memory: new FormControl('', [Validators.required, Validators.maxLength(5000)]) });
+  public memoryForm = new FormGroup({ memory: new FormControl('', [Validators.required, Validators.maxLength(1000)]) });
   public about$: Observable<AboutState>;
   ngZone: any;
 

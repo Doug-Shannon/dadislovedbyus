@@ -1,27 +1,15 @@
-<div class="box-container" fxLayout="column" [ngStyle.lt-sm]="'min-height: 800px;'">
-  <div
-    fxLayout="row"
-    fxLayoutAlign="center center"
-    class="mat-headline"
-    style="margin:0; font-family: 'Over The Rainbow'; font-weight: bold"
-  >
-    <h1 style="margin-top:15px; margin-bottom: 5px">Memories</h1>
+<div class="box">
+  <div class="header">
+    <div style="flex: 0 1 auto; width: 40px;"></div>
+    <div class="title-container"><h1 class="title">Memories</h1></div>
+    <div class="swipe-icon-container"><img [@pulse]="pulseSwipe" class="swipe-icon" src="assets/swipe.svg" /></div>
   </div>
-  <div class="horizontal-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex>
-    <div class="content-container" fxLayout="column" fxLayoutAlign="stretch" fxFlex="auto" style="padding:5px">
-      <swiper class="swiper-container" fxFlex="auto">
-        <!-- (indexChange)="onIndexChange($event)"
-        (swiperTransitionStart)="onSwiperEvent('transitionStart')"
-        (swiperTransitionEnd)="onSwiperEvent('transitionEnd')" -->
+  <div class="content">
+    <div class="swiper-container">
+      <swiper class="swiper-self" (indexChange)="onIndexChange($event)">
         <div class="swiper-slide" *ngFor="let option of options">
-          <div fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
-            <div fxLayout="row" fxFlex fxLayoutAlign="center center">
-              <div style="height:400px;overflow: hidden; text-align: justify; font-family: dosis;font-size: 16px;">{{ option.item.entry.memory }}</div>
-            </div>
-            <div fxLayout="column" fxFlex="20%" fxLayoutAlign="end end" style="width:100%;">
-              <app-user-circle [user]="option.item.user"></app-user-circle>
-            </div>
-          </div>
+          <div style="text-align: justify; font-family: dosis;font-size: 20px;">{{ option.item.entry.memory }}</div>
+          <div style="width:100%;"><app-user-circle [user]="option.item.user"></app-user-circle></div>
         </div>
       </swiper>
     </div>

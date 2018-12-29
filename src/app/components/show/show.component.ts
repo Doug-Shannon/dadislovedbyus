@@ -146,6 +146,8 @@ export class ShowComponent implements OnInit {
     const dialogRef = this.dialog.open(MemoryModalComponent, {
       data: { memories: this.memories } as MemoryModalData,
       panelClass: 'panelClass',
+      height: '80%',
+      width: '800px',
       backdropClass: 'backdrop'
     });
 

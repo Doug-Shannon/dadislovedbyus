@@ -95,7 +95,7 @@
           <div fxLayout="column" fxFlex>
             <div fxLayout fxFlex class="alert alert-danger">
               <div *ngIf="memoryForm.invalid && (memoryForm.dirty || memoryForm.touched)">
-                <mat-error *ngIf="memoryForm.get('memory').hasError('maxlength')">Memory must be less than 5000 characters long.</mat-error>
+                <mat-error *ngIf="memoryForm.get('memory').hasError('maxlength')">Memory must be less than 1000 characters long.</mat-error>
               </div>
               &nbsp;
             </div>
