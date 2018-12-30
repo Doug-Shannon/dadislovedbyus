@@ -23,7 +23,7 @@
     <div fxFlex="1" class="container"></div>
     <div fxLayoutAlign="center end" style="height:100px;">
       <div *ngFor="let attr of attributes">
-        <div *ngIf="attr.on" [@bounceInUp]="'flyIn'" style="margin-left: -30px">
+        <div *ngIf="attr.on" [@bounceInUp]="'flyIn'" style="margin-left: -30px;overflow:hidden">
           <app-user-card style="position:relative" [content]="attr.entry" [user]="attr.user"></app-user-card>
         </div>
       </div>
