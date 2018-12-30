@@ -1,12 +1,12 @@
 
-  <canvas id="confetti-holder" style="z-index:2; position: absolute; left: 0px; top: 0px;height: 100%"> </canvas>
+  <canvas id="confetti-holder" style="z-index:-1; position: absolute; left: 0px; top: 0px;height:100%"> </canvas>
   <ng-container *ngIf="(isBigScreenObs | async) as isBig">
     <div *ngIf="isBig.matches; else smallScreen" fxLayout class="container">
-      <div fxLayout fxFlex class="container"></div>
+      <div fxLayout fxFlex class="container" style="background-color: grey"></div>
       <div fxLayout="column" class="container">
         <div fxLayout="row" fxFlex><router-outlet></router-outlet></div>
       </div>
-      <div fxLayout fxFlex class="container"></div>
+      <div fxLayout fxFlex class="container" style="background-color: grey"></div>
     </div>
   </ng-container>
   <ng-template #smallScreen><router-outlet></router-outlet> </ng-template>
