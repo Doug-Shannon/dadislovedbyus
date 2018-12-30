@@ -148,7 +148,7 @@ export class ShowComponent implements OnInit {
       panelClass: 'panelClass',
       height: '80%',
       width: '800px',
-      backdropClass: 'backdrop'
+      // backdropClass: 'backdrop'
     });
 
     dialogRef.afterClosed().subscribe(result => {

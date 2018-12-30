@@ -63,6 +63,10 @@ export class MemoryModalComponent implements OnInit {
     this.swiped = true;
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+
   triggerAnimation() {
     if (this.pulseSwipe === 'off') {
       this.pulseSwipe = 'on';

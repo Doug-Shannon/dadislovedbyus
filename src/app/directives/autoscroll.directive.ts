@@ -1,29 +1,40 @@
-import { Directive, Renderer2, ElementRef, OnInit, Input, OnChanges } from '@angular/core';
-import { interval } from 'rxjs';
-import { scan, tap, takeWhile } from 'rxjs/operators';
+import { Directive, Renderer2, ElementRef, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import { interval, Subscription } from 'rxjs';
+import { scan, tap, takeWhile, switchMap } from 'rxjs/operators';
 
 @Directive({
   selector: '[autoscroll]'
 })
-export class AutoscrollDirective implements OnChanges {
+export class AutoscrollDirective implements OnChanges, OnInit, OnDestroy {
   constructor(private el: ElementRef, private renderer: Renderer2) {}
   @Input() autoscroll: boolean;
+  private sub: Subscription;
 
   ngOnChanges() {
-    // console.log('isBigger');
+    this.handleScroll();
+  }
+  ngOnInit() {
+    this.handleScroll();
+  }
 
-    console.log('autoscroll', this.autoscroll);
-    if (this.el.nativeElement.clientHeight < this.el.nativeElement.scrollHeight && this.autoscroll) {
-      interval(4)
-        .pipe(
-          scan((acc, curr) => acc + .05, 0),
-          tap(position => this.renderer.setProperty(this.el.nativeElement, 'scrollTop', position)),
-          takeWhile(val => this.autoscroll && val + this.el.nativeElement.clientHeight < this.el.nativeElement.scrollHeight)
-        )
-        .subscribe();
-    } else {
-      this.renderer.setProperty(this.el.nativeElement, 'scrollTop', 0);
+  handleScroll() {
+    this.renderer.setProperty(this.el.nativeElement, 'scrollTop', 0);
+    if (!!this.sub) {
+      this.sub.unsubscribe();
     }
-    console.log('in directive, el:', this.el);
+    this.sub = interval(2000)
+      .pipe(
+        switchMap(() => interval(80)),
+        takeWhile(val => this.autoscroll && val + this.el.nativeElement.clientHeight < this.el.nativeElement.scrollHeight),
+        scan(acc => acc + 1, 0),
+        tap(position => this.renderer.setProperty(this.el.nativeElement, 'scrollTop', position)),
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy() {
+    if (!!this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }
