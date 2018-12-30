@@ -8,7 +8,7 @@
 .show-container {
   border: 10px solid black;
   position: relative;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 .white {
@@ -69,12 +69,13 @@
 
 .centered {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .heart {
+  margin-top: 10px;
   width: 100px;
   height: 100px;
   z-index: 30;

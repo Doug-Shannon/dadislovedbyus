@@ -172,7 +172,7 @@ export class ShowComponent implements OnInit {
     }
     this.attributes = attrMap;
 
-    interval(6000)
+    interval(7000)
       .pipe(
         tap(() => {
           this.attributes.forEach(a => (a.on = false));
