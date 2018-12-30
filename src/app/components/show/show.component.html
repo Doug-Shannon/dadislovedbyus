@@ -1,5 +1,4 @@
 <div class="container show-container" fxLayout="column">
-  <canvas id="confetti-holder" style="z-index:-1000; position: absolute; left: -10px; top: -10px;"> </canvas>
   <ng-container *ngIf="loaded; else loading">
     <div fxLayoutAlign="center start" style="height: 112px;">
       <ng-container *ngFor="let name of names">
@@ -12,7 +11,7 @@
     <div fxFlex="1" class="container" fxLayoutAlign="start end" style="position: relative;">
       <div fxFlex="80%" class="container"></div>
       <div>
-        <div [@seekAttention]="attentionSeeker" class="image-container" style="position: absolute;">
+        <div [@seekAttention]="attentionSeeker" class="image-container" style="position: absolute;z-index: 25;cursor: pointer;">
           <img class="heart centered" src="assets/like.svg" (click)="memoryButtonClicked()" />
           <div id="heart-text" class="heart-text" (click)="memoryButtonClicked()"><p style="margin:0;">touch</p></div>
         </div>

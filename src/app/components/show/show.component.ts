@@ -1,8 +1,6 @@
 import { MemoryModalData } from 'app/models/memory-dialog-data';
 import { Memory } from './../../models/memory';
 import { MemoryModalComponent } from './../memory-modal/memory-modal.component';
-declare var ConfettiGenerator: any;
-
 import { Attribute } from './../../models/attribute';
 import { AboutState } from 'app/state/reducers/about.reducer';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
@@ -12,7 +10,6 @@ import { UserState } from 'app/state/reducers/user.reducer';
 import { Store } from '@ngrx/store';
 import { User } from 'app/models/user';
 import { bounceIn, bounceOut, rubberBand, fadeInDown, fadeOut, jello, fadeIn } from 'ng-animate';
-import 'confetti-js';
 
 import {
   trigger,
@@ -89,26 +86,12 @@ export interface Entry<T> {
   ]
 })
 export class ShowComponent implements OnInit {
-  confSettings = {
-    target: 'confetti-holder',
-    max: '120',
-    size: '1',
-    animate: true,
-    props: ['circle', 'square', 'triangle'],
-    colors: [[165, 104, 246], [230, 61, 135], [0, 199, 228], [253, 214, 126]],
-    clock: '15',
-    rotate: true,
-    width: '',
-    height: ''
-  };
-
   constructor(private store: Store<UserState>, private renderer: Renderer2, private dialog: MatDialog) {}
 
   public attributes: Entry<Attribute>[] = [];
   public memories: Entry<Memory>[] = [];
   public names: Entry<string>[] = [{ entry: 'Dave', on: true, size: '112px', used: false } as Entry<string>];
   public loaded = false;
-  public confetti;
   public attentionSeeker = '';
 
   @ViewChild('typer') private typerEl: ElementRef;
@@ -123,8 +106,6 @@ export class ShowComponent implements OnInit {
         }),
         tap(() => {
           this.loaded = true;
-          this.confetti = new ConfettiGenerator(this.confSettings);
-          this.confetti.render();
         }),
         tap(([usersState, aboutState]: [UserState, AboutState]) => {
           this.setupAttributes(aboutState.attributes, usersState.entities);
