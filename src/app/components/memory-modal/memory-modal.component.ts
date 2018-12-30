@@ -52,7 +52,8 @@ export class MemoryModalComponent implements OnInit {
       return { item: d, selected: false };
     });
     this.options[0].selected = true;
-    interval(7500).pipe(
+    this.triggerAnimation();
+    interval(5000).pipe(
       takeWhile(() => !this.swiped),
       tap(() => this.triggerAnimation())
     ).subscribe();

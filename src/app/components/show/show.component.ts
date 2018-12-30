@@ -128,7 +128,7 @@ export class ShowComponent implements OnInit {
       data: { memories: this.memories } as MemoryModalData,
       panelClass: 'panelClass',
       height: '80%',
-      width: '800px',
+      width: '800px'
       // backdropClass: 'backdrop'
     });
 
