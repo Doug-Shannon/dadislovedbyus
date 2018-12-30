@@ -1,7 +1,9 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppState } from 'app/state/reducers';
 import { Store } from '@ngrx/store';
 import * as aboutActions from 'app/state/actions/about.actions';
+import * as authActions from 'app/state/actions/auth.actions';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AboutState } from 'app/state/reducers/about.reducer';
 import { Observable } from 'rxjs';
@@ -34,7 +36,7 @@ export class TellComponent implements OnInit {
   public about$: Observable<AboutState>;
   ngZone: any;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   ngOnInit() {
     this.about$ = this.store.select('about').pipe(
@@ -64,6 +66,9 @@ export class TellComponent implements OnInit {
     if (this.memoryForm.valid) {
       this.store.dispatch(new aboutActions.SaveMemory(this.memoryForm.value.memory));
     }
+  }
+  logout() {
+      this.store.dispatch(new authActions.Logout());
   }
 
   triggerResize() {
