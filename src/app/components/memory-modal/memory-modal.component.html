@@ -10,7 +10,7 @@
     <div class="swiper-container">
       <swiper class="swiper-self" (indexChange)="onIndexChange($event)" [(index)]="slideIndex">
         <div class="swiper-slide" *ngFor="let option of options; let optionIndex = index" [autoscroll]="optionIndex === slideIndex">
-          <div class="column" style="background-color: #fff">
+          <div class="column">
             <div class="row">
               <div class="space-taker-upper"><hr style="border-width: 1px;border-style: solid;margin-left:5px; margin-right:5px;" /></div>
               <app-user-circle [user]="option.item.user"></app-user-circle>

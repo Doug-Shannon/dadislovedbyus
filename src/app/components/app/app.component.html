@@ -1,4 +1,4 @@
-<canvas id="confetti-holder" style="z-index:1; position: absolute; left: 0px; top: 0px;"> </canvas>
+<canvas id="confetti-holder" style="z-index:-1; position: absolute; left: 0px; top: 0px;"> </canvas>
 <ng-container *ngIf="(isBigScreenObs | async) as isBig">
   <div *ngIf="isBig.matches; else smallScreen" fxLayout class="container" style="background-color: gray;">
     <div fxLayout fxFlex class="container"></div>
