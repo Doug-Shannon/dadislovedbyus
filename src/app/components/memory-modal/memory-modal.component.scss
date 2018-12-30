@@ -14,7 +14,7 @@
   align-items: stretch;
   // background-color: rgba(211, 211, 211, .5);
   // background: rgba(0,199,228,0.32);
-  background-image: linear-gradient(rgba(0,199,228,0.32), #fff);
+  background-image: linear-gradient(rgba(0,199,228,0.15), #fff);
 }
 
 .title-container {
@@ -99,8 +99,8 @@
 }
 
 .swiper-slide > * {
-  margin-right: 40px;
-  margin-left: 40px;
+  margin-right: 25px;
+  margin-left: 25px;
   // border: 2px solid black;
 }
 
