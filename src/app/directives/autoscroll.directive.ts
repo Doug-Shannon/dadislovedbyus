@@ -14,9 +14,9 @@ export class AutoscrollDirective implements OnChanges {
 
     console.log('autoscroll', this.autoscroll);
     if (this.el.nativeElement.clientHeight < this.el.nativeElement.scrollHeight && this.autoscroll) {
-      interval(100)
+      interval(4)
         .pipe(
-          scan((acc, curr) => acc + 1, 0),
+          scan((acc, curr) => acc + .05, 0),
           tap(position => this.renderer.setProperty(this.el.nativeElement, 'scrollTop', position)),
           takeWhile(val => this.autoscroll && val + this.el.nativeElement.clientHeight < this.el.nativeElement.scrollHeight)
         )
