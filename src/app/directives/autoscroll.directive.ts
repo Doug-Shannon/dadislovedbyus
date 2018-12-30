@@ -18,16 +18,16 @@ export class AutoscrollDirective implements OnChanges, OnInit, OnDestroy {
   }
 
   handleScroll() {
+    this.renderer.setProperty(this.el.nativeElement, 'scrollTop', 0);
     if (!!this.sub) {
       this.sub.unsubscribe();
     }
     this.sub = interval(2000)
       .pipe(
-        tap(() => this.renderer.setProperty(this.el.nativeElement, 'scrollTop', 0)),
         switchMap(() => interval(80)),
         takeWhile(val => this.autoscroll && val + this.el.nativeElement.clientHeight < this.el.nativeElement.scrollHeight),
         scan(acc => acc + 1, 0),
-        tap(position => this.renderer.setProperty(this.el.nativeElement, 'scrollTop', position))
+        tap(position => this.renderer.setProperty(this.el.nativeElement, 'scrollTop', position)),
       )
       .subscribe();
   }
