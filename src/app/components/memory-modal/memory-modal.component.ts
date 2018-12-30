@@ -32,6 +32,7 @@ export class MemoryModalComponent implements OnInit {
   public swiped = false;
   public pulseSwipe = 'off';
   public pulseScroll = 'off';
+  public slideIndex = 0;
 
   public options: { item: Entry<Memory>; selected: boolean }[] = [];
   config: any = {

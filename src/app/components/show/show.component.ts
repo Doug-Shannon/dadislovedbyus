@@ -158,9 +158,11 @@ export class ShowComponent implements OnInit {
 
   private setupMemories(memories: Memory[], usersMap) {
     const mems = this.shuffle(
-      memories.map(m => {
-        return { entry: m, user: usersMap[m.user], on: false, used: false } as Entry<Memory>;
-      })
+      memories
+        // .filter(m => m.memory.startsWith('Lorem ipsum dolor sit amet'))
+        .map(m => {
+          return { entry: m, user: usersMap[m.user], on: false, used: false } as Entry<Memory>;
+        })
     );
     this.memories = mems;
   }

@@ -60,6 +60,7 @@ import { MemoryModalComponent } from './components/memory-modal/memory-modal.com
 
 //// OTHER
 import { SwiperModule, SWIPER_CONFIG, SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { AutoscrollDirective } from './directives/autoscroll.directive';
 
 const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'vertical',
@@ -85,7 +86,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     AttributeComponent,
     UserCardComponent,
     UserCircleComponent,
-    MemoryModalComponent
+    MemoryModalComponent,
+    AutoscrollDirective
   ],
   imports: [
     // ANGULAR

@@ -6,9 +6,11 @@
   </div>
   <div class="content">
     <div class="swiper-container">
-      <swiper class="swiper-self" (indexChange)="onIndexChange($event)">
-        <div class="swiper-slide" *ngFor="let option of options">
-          <div style="text-align: justify; font-family: dosis;font-size: 20px;">{{ option.item.entry.memory }}</div>
+      <swiper class="swiper-self" (indexChange)="onIndexChange($event)" [(index)]="slideIndex">
+        <div class="swiper-slide" *ngFor="let option of options; let optionIndex = index;" [autoscroll]="optionIndex === slideIndex">
+          <div style="text-align: justify; font-family: dosis;font-size: 20px;">
+            <p>{{ option.item.entry.memory }}</p>
+          </div>
           <div style="width:100%;"><app-user-circle [user]="option.item.user"></app-user-circle></div>
         </div>
       </swiper>
